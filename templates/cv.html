@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV — {{ cv.full_name or 'Curriculum Vitae' }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 py-8 px-4">
+
+    <div class="max-w-3xl mx-auto mb-4 flex items-center justify-between no-print">
+        <a href="/" class="text-sm font-semibold text-slate-600 hover:text-indigo-600">← Kembali ke Portofolio</a>
+        <button onclick="window.print()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-indigo-600 text-white hover:bg-indigo-700">
+            Cetak / Simpan PDF
+        </button>
+    </div>
+
+    <article class="max-w-3xl mx-auto bg-white rounded-2xl border border-slate-200 p-8 shadow-sm space-y-6">
+        <header class="border-b border-slate-200 pb-5">
+            <h1 class="text-3xl font-extrabold text-slate-900">{{ cv.full_name or 'Nama Lengkap' }}</h1>
+            <p class="text-indigo-600 font-semibold mt-1">{{ cv.job_title or 'Jabatan / Peran' }}</p>
+            <div class="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-xs text-slate-500">
+                {% if cv.email %}<span>Email: {{ cv.email }}</span>{% endif %}
+                {% if cv.phone %}<span>Telepon: {{ cv.phone }}</span>{% endif %}
+                {% if cv.location %}<span>Lokasi: {{ cv.location }}</span>{% endif %}
+                {% if cv.github %}<span>GitHub: {{ cv.github }}</span>{% endif %}
+                {% if cv.linkedin %}<span>LinkedIn: {{ cv.linkedin }}</span>{% endif %}
+            </div>
+        </header>
+
+        {% if cv.summary %}
+        <section>
+            <h2 class="text-sm font-extrabold uppercase tracking-wider text-slate-900 mb-2">Ringkasan Profil</h2>
+            <p class="text-sm text-slate-600 leading-relaxed whitespace-pre-line">{{ cv.summary }}</p>
+        </section>
+        {% endif %}
+
+        {% if cv.skills %}
+        <section>
+            <h2 class="text-sm font-extrabold uppercase tracking-wider text-slate-900 mb-2">Keahlian</h2>
+            <p class="text-sm text-slate-600 leading-relaxed whitespace-pre-line">{{ cv.skills }}</p>
+        </section>
+        {% endif %}
+
+        {% if cv.education %}
+        <section>
+            <h2 class="text-sm font-extrabold uppercase tracking-wider text-slate-900 mb-2">Pendidikan</h2>
+            <p class="text-sm text-slate-600 leading-relaxed whitespace-pre-line">{{ cv.education }}</p>
+        </section>
+        {% endif %}
+
+        {% if cv.experience %}
+        <section>
+            <h2 class="text-sm font-extrabold uppercase tracking-wider text-slate-900 mb-2">Pengalaman</h2>
+            <p class="text-sm text-slate-600 leading-relaxed whitespace-pre-line">{{ cv.experience }}</p>
+        </section>
+        {% endif %}
+    </article>
+
+</body>
+</html>

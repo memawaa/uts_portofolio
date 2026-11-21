@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin — Kelola CV</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen">
+
+    <header class="bg-white border-b border-slate-200">
+        <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <a href="/" class="font-extrabold text-indigo-600">Portofolio</a>
+                <span class="text-slate-300">|</span>
+                <a href="/dashboard" class="text-sm font-semibold text-slate-600 hover:text-indigo-600">Kelola Proyek</a>
+                <a href="/dashboard/cv" class="text-sm font-bold text-slate-900">Kelola CV</a>
+            </div>
+            <a href="/cv" target="_blank" class="text-xs font-semibold text-indigo-600 hover:underline">Lihat Halaman CV →</a>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-10">
+        <div class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+            <h1 class="text-xl font-extrabold text-slate-900 mb-1">Kelola Data CV</h1>
+            <p class="text-xs text-slate-500 mb-6">Perubahan yang disimpan akan langsung tampil di halaman <code class="font-bold">/cv</code>.</p>
+
+            {% if success %}
+            <div class="mb-5 p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-700 font-semibold">
+                Data CV berhasil disimpan ke Supabase!
+            </div>
+            {% endif %}
+
+            <form method="POST" action="/dashboard/cv" class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Nama Lengkap</label>
+                        <input type="text" name="full_name" value="{{ cv.full_name or '' }}"
+                               class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Judul / Peran</label>
+                        <input type="text" name="job_title" value="{{ cv.job_title or '' }}"
+                               class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Email</label>
+                        <input type="text" name="email" value="{{ cv.email or '' }}"
+                               class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Nomor HP / WhatsApp</label>
+                        <input type="text" name="phone" value="{{ cv.phone or '' }}"
+                               class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Lokasi</label>
+                        <input type="text" name="location" value="{{ cv.location or '' }}"
+                               class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">GitHub / LinkedIn</label>
+                        <input type="text" name="github" value="{{ cv.github or '' }}" placeholder="https://github.com/..."
+                               class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Ringkasan Profil</label>
+                    <textarea name="summary" rows="3" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">{{ cv.summary or '' }}</textarea>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Keahlian (Skills)</label>
+                    <textarea name="skills" rows="3" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">{{ cv.skills or '' }}</textarea>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Pendidikan</label>
+                    <textarea name="education" rows="3" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">{{ cv.education or '' }}</textarea>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Pengalaman</label>
+                    <textarea name="experience" rows="4" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">{{ cv.experience or '' }}</textarea>
+                </div>
+
+                <input type="hidden" name="linkedin" value="{{ cv.linkedin or '' }}">
+
+                <button type="submit" class="px-6 py-2.5 rounded-xl text-sm font-semibold bg-indigo-600 text-white hover:bg-indigo-700 transition">
+                    Simpan Perubahan CV
+                </button>
+            </form>
+        </div>
+    </main>
+
+</body>
+</html>
